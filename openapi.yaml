@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  title: TCP API
+  description: API for TCP server
+  contact: 
+    name: DmtrSuch
+    url: https://github.com/DmtrSuch/
+  version: 0.0.0
+servers: 
+  - url: https://127.0.0.1:5555
+  - url: https://localhost:5555
+paths:
+  /addres:
+    description: Addres resource
+    get:
+      description: Get all addres
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array 
+                items: 
+                  properties:
+                    city:
+                      type: string
+                      example: SPB
+                    street:
+                      type: string
+                      example: 1 fff
+                    peoples:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          age: 
+                            type: integer
+                            example: 6
+                          name:
+                            type: string
+                            example: Name
+                          surname: 
+                            type: string
+                            example: surname
+                          
+  /addunit:
+    description: add unit
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                    city:
+                      type: string
+                      example: SPB
+                    street:
+                      type: string
+                      example: 1 fff
+                    peoples:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          age: 
+                            type: integer
+                            example: 6
+                          name:
+                            type: string
+                            example: Name
+                          surname: 
+                            type: string
+                            example: surname
+      responses: 
+        201: 
+          description: Add unit
+        412:
+          description: Incorrect data
+      
+  /alldel:
+    description: delete all units
+    delete:
+      description: del all units
+      responses:
+        201:
+          description: All unit del
+          
+  /deleteuserforname/{adname}:
+    description: delete by name
+    parameters:
+      - in: path
+        name: adname
+        schema:
+          type: string
+        required: true
+        description: The name to delete
+    delete:
+      responses:
+        200:
+          description: unit is delete
+        404:
+          description: unit not found
+        
+        
+  
+      
+        

@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  title: TCP API
+  description: API for TCP server
+  contact:
+    name: DmtrSuch
+    url: https://github.com/DmtrSuch/
+  version: 0.0.0
+servers:
+- url: https://127.0.0.1:5555
+- url: https://localhost:5555
+paths:
+  /addres:
+    description: Addres resource
+    get:
+      description: Get all addres
+      operationId: addres_get
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /addunit:
+    description: add unit
+    put:
+      operationId: addunit_put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addunit_body'
+      responses:
+        "201":
+          description: Add unit
+        "412":
+          description: Incorrect data
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /alldel:
+    description: delete all units
+    delete:
+      description: del all units
+      operationId: alldel_delete
+      responses:
+        "201":
+          description: All unit del
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /deleteuserforname/{adname}:
+    description: delete by name
+    delete:
+      operationId: deleteuserforname_adname_delete
+      parameters:
+      - name: adname
+        in: path
+        description: The name to delete
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: unit is delete
+        "404":
+          description: unit not found
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+components:
+  schemas:
+    addres_peoples:
+      type: object
+      properties:
+        age:
+          type: integer
+          example: 6
+        name:
+          type: string
+          example: Name
+        surname:
+          type: string
+          example: surname
+      example:
+        surname: surname
+        name: Name
+        age: 6
+    inline_response_200:
+      properties:
+        city:
+          type: string
+          example: SPB
+        street:
+          type: string
+          example: 1 fff
+        peoples:
+          type: array
+          items:
+            $ref: '#/components/schemas/addres_peoples'
+      example:
+        peoples:
+        - surname: surname
+          name: Name
+          age: 6
+        - surname: surname
+          name: Name
+          age: 6
+        city: SPB
+        street: 1 fff
+    addunit_body:
+      type: object
+      properties:
+        city:
+          type: string
+          example: SPB
+        street:
+          type: string
+          example: 1 fff
+        peoples:
+          type: array
+          items:
+            $ref: '#/components/schemas/addres_peoples'
+
